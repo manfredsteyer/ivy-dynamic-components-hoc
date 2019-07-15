@@ -11,9 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 export class ComicComponent implements OnInit {
 
     _comicId: string;
-  comic: Comic;
+  comic: Comic = { id:'1', name: 'empty', image: 'B-|' };
 
   @Input() set comicId(value: string) {
+    console.debug('new comicId', value);
     this._comicId = value;
     this.comic = this.comicService.findComicById(value);
   }
@@ -24,15 +25,24 @@ export class ComicComponent implements OnInit {
 
   constructor(
     private comicService: ComicService,
-    private route: ActivatedRoute) {
+    /*private route: ActivatedRoute*/) {
 
-      this.route.params.subscribe(p => {
-        this.comicId = p.comicId;
-      });
+      // this.route.params.subscribe(p => {
+      //   this.comicId = p.comicId;
+      // });
 
   }
 
   ngOnInit() {
+  }
+
+  stuff() {
+    this.comic.id = '' + (parseInt(this.comic.id) + 1);
+    console.debug('comic', this.comic);
+  }
+
+  ping() {
+    console.debug('ping!');
   }
 
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ComicComponent } from './comic/comic.component';
 import { ComicsComponent } from './comics/comics.component';
+import { withRoute } from './utils/utils';
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'comic/:comicId',
-    component: ComicComponent
+    component: withRoute(ComicComponent)
   }
 ];
 

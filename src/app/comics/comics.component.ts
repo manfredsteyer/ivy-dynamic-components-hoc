@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { Comic, comics } from '../model/comics';
 import { ComicService } from '../model/comic.service';
 
@@ -11,7 +11,9 @@ export class ComicsComponent implements OnInit {
 
   comics: Comic[];
 
-  constructor(private comicService: ComicService) {
+  constructor(
+    private injector: Injector,
+    private comicService: ComicService) {
     this.comics = comicService.findComics();
   }
 

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ɵrenderComponent, Injector, OnInit } from '@angular/core';
+import { ComicComponent } from './comic/comic.component';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'hoc';
+
+  constructor() {
+  }
+
 }
