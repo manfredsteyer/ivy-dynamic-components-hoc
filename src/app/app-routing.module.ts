@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ComicComponent } from './comic/comic.component';
 import { ComicsComponent } from './comics/comics.component';
 import { withRoute } from './utils/utils';
+import { RoutedComicComponent } from './routed-comic/routed-comic.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'comic/:comicId',
     component: withRoute(ComicComponent)
+  },
+  {
+    path: 'old/:comicId',
+    component: RoutedComicComponent
   }
 ];
 
