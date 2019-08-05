@@ -1,0 +1,32 @@
+class RoutedComicComponent {
+    constructor(route) {
+        this.route = route;
+        // @ViewChild('wrapped', { static: true })
+        // component: any;
+        this.params = {};
+    }
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.params = params;
+        });
+    }
+}
+RoutedComicComponent.ngComponentDef = ??defineComponent({ type: RoutedComicComponent, selectors: [["app-routed-comic"]], factory: function RoutedComicComponent_Factory(t) { return new (t || RoutedComicComponent)(??directiveInject(ActivatedRoute)); }, consts: 4, vars: 2, template: function RoutedComicComponent_Template(rf, ctx) { if (rf & 1) {
+        ??element(0, "app-comic", _c0, _c1);
+        ??element(2, "app-comic", _c0, _c2);
+    } if (rf & 2) {
+        ??property("comicId", ctx.params.comicId);
+        ??select(2);
+        ??property("comicId", ctx.params.comicId);
+    } }, directives: [ComicComponent], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3JvdXRlZC1jb21pYy9yb3V0ZWQtY29taWMuY29tcG9uZW50LmNzcyJ9 */ });
+/*@__PURE__*/ ?setClassMetadata(RoutedComicComponent, [{
+        type: Component,
+        args: [{
+                selector: 'app-routed-comic',
+                templateUrl: './routed-comic.component.html',
+                styleUrls: ['./routed-comic.component.css']
+            }]
+    }], function () { return [{ type: ActivatedRoute }]; }, null);
+
+
+/***/ }),

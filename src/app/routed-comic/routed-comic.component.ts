@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,14 +6,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './routed-comic.component.html',
   styleUrls: ['./routed-comic.component.css']
 })
-export class RoutedComicComponent implements OnInit
-// , AfterViewInit 
-{
+export class RoutedComicComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 
-  // @ViewChild('wrapped', { static: true })
-  // component: any;
   params: any = {};
 
   ngOnInit() {
@@ -22,7 +18,4 @@ export class RoutedComicComponent implements OnInit
     });
   }
 
-  // ngAfterViewInit(): void {
-  //   console.debug('keys', this.component.constructor.ngComponentDef);
-  // }
 }
