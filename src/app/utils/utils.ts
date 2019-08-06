@@ -50,8 +50,9 @@ export function withRoute(component /*: ɵComponentType<any>*/) {
             }
             if (rf & RenderFlags.Update) {
                 for (const prop in ctx.params) {
-                    if (prop in component) {
-                       ɵɵproperty(prop, ctx.params[prop]);
+                    const compProp = def.inputs[prop];
+                    if (compProp) {
+                       ɵɵproperty(prop, ctx.params[compProp]);
                     }
                 }
             }

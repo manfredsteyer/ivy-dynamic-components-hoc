@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ɵmarkDirty } from '@angular/core';
 import { ComicService } from '../model/comic.service';
 import { Comic } from '../model/comics';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-comic',
@@ -11,10 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 export class ComicComponent implements OnInit {
 
     _comicId: string;
-  comic: Comic = { id:'1', name: 'empty', image: 'B-|' };
+  comic: Comic = { id: '1', name: 'empty', image: 'B-|' };
 
   @Input() set comicId(value: string) {
-    console.debug('new comicId', value);
     this._comicId = value;
     this.comic = this.comicService.findComicById(value);
   }
