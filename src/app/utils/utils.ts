@@ -5,15 +5,21 @@ import {
     ChangeDetectionStrategy,
     ɵɵelement,
     OnInit,
-    ɵɵproperty
+    ɵɵproperty,
+    Type,
+    ɵComponentType,
+    ɵRenderFlags
 } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { RenderFlags } from '@angular/compiler/src/core';
 
-export function withRoute(component /*: ɵComponentType<any>*/) {
+export function withRoute(inner: Type<any>) {
 
-    const def = component.ngComponentDef as ɵComponentDef<any>;
+    // At runtime this will be a ɵComponentType<any> with
+    // a static ngComponentDef property
+    const ngComponent = inner as ɵComponentType<any>;
+
+    const def = ngComponent.ngComponentDef as ɵComponentDef<any>;
     const elementName = def.selectors[0][0] as string;
 
     // TODO: using ɵComponentType leads to an error, b/c the type
@@ -38,17 +44,18 @@ export function withRoute(component /*: ɵComponentType<any>*/) {
         consts: 1,
         vars: 1,
         directives: [
-            component
+            inner
         ],
         changeDetection: ChangeDetectionStrategy.Default,
         factory: () => new HigherOrderComponent(
             ɵɵdirectiveInject(ActivatedRoute)),
         selectors: [[]],
         template: (rf, ctx) => {
-            if (rf & RenderFlags.Create) {
+
+            if (rf & ɵRenderFlags.Create) {
                ɵɵelement(0, elementName, null, ['wrapped', '']);
             }
-            if (rf & RenderFlags.Update) {
+            if (rf & ɵRenderFlags.Update) {
                 for (const prop in ctx.params) {
                     const compProp = def.inputs[prop];
                     if (compProp) {
