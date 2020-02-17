@@ -19,14 +19,15 @@ export function withRoute(inner: Type<any>) {
     // a static ngComponentDef property
     const ngComponent = inner as ɵComponentType<any>;
 
-    const def = ngComponent.ngComponentDef as ɵComponentDef<any>;
+    const def = ngComponent.ɵcmp as ɵComponentDef<any>;
     const elementName = def.selectors[0][0] as string;
 
     // TODO: using ɵComponentType leads to an error, b/c the type
     //  does not have ngComponentDef at compile time
     class HigherOrderComponent implements OnInit {
 
-        static ngComponentDef: ɵComponentDef<HigherOrderComponent>;
+        static ɵcmp: ɵComponentDef<HigherOrderComponent>;
+        static ɵfac: () => HigherOrderComponent;
 
         params: any = {};
 
@@ -40,26 +41,30 @@ export function withRoute(inner: Type<any>) {
         }
     }
 
-    HigherOrderComponent.ngComponentDef = ɵɵdefineComponent({
-        consts: 1,
+    HigherOrderComponent.ɵfac = () => new HigherOrderComponent(ɵɵdirectiveInject(ActivatedRoute));
+
+    HigherOrderComponent.ɵcmp = ɵɵdefineComponent({
         vars: 1,
+        decls: 2,
+        consts: [[3, 'comicId']],
         directives: [
             inner
         ],
         changeDetection: ChangeDetectionStrategy.Default,
-        factory: () => new HigherOrderComponent(
-            ɵɵdirectiveInject(ActivatedRoute)),
         selectors: [[]],
         template: (rf, ctx) => {
 
+            // tslint:disable-next-line: no-bitwise
             if (rf & ɵRenderFlags.Create) {
-               ɵɵelement(0, elementName, null, ['wrapped', '']);
+                ɵɵelement(0, elementName);
             }
+            // tslint:disable-next-line: no-bitwise
             if (rf & ɵRenderFlags.Update) {
+                // tslint:disable-next-line: forin
                 for (const prop in ctx.params) {
                     const compProp = def.inputs[prop];
                     if (compProp) {
-                       ɵɵproperty(prop, ctx.params[compProp]);
+                        ɵɵproperty(prop, ctx.params[compProp]);
                     }
                 }
             }
@@ -68,4 +73,4 @@ export function withRoute(inner: Type<any>) {
     });
 
     return HigherOrderComponent;
-}
+    }
